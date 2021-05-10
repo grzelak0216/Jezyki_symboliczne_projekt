@@ -1,7 +1,6 @@
 # Jezyki_symboliczne_projekt
 # 15. Generator labiryntów
   ###    Lak Grzegorz 134120 GL04
-#####  https://github.com/grzelak0216/Jezyki_symboliczne_projekt
 
 ## Opis zadania 
 
