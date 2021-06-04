@@ -54,7 +54,6 @@ def checkAdjacentPos(map, x, y, width, height, checklist):
 		return False
 
 
-# recursive backtracker algorithm#
 def recursiveBacktracker(map, width, height):
 	startX, startY = (randint(0, width-1), randint(0, height-1))
 	map.setMap(2*startX+1, 2*startY+1, MAP_ENTRY_TYPE.MAP_EMPTY)

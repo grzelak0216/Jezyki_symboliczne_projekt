@@ -1,6 +1,7 @@
 from random import randint
 from enum import Enum
 
+
 class MAP_ENTRY_TYPE(Enum):
 	MAP_EMPTY = 0,
 	MAP_BLOCK = 1,
@@ -9,18 +10,21 @@ class MAP_ENTRY_TYPE(Enum):
 	MAP_PLAYER = 4,
 	MAP_PATH = 5,
 
+
 class WALL_DIRECTION(Enum):
 	WALL_LEFT = 0,
 	WALL_UP = 1,
 	WALL_RIGHT = 2,
 	WALL_DOWN = 3,
-	
+
+
 map_entry_types = {0:MAP_ENTRY_TYPE.MAP_EMPTY,
 				   1:MAP_ENTRY_TYPE.MAP_BLOCK,
 				   2:MAP_ENTRY_TYPE.MAP_TARGET,
 				   3:MAP_ENTRY_TYPE.MAP_BEGIN,
 				   4:MAP_ENTRY_TYPE.MAP_PLAYER,
 				   5:MAP_ENTRY_TYPE.MAP_PATH}
+
 
 class Map():
 	def __init__(self, width, height):
@@ -30,7 +34,7 @@ class Map():
 
 	def generatePos(self, rangeX, rangeY):
 		x, y = (randint(rangeX[0], rangeX[1]), randint(rangeY[0], rangeY[1]))
-		while self.map[y][x] == 1:
+		while self.map[y][x] == 1 or self.map[y][x] == MAP_ENTRY_TYPE.MAP_BEGIN:
 			x, y = (randint(rangeX[0], rangeX[1]), randint(rangeY[0], rangeY[1]))
 		print(x, ' ', y)
 		return (x , y)
