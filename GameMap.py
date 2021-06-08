@@ -8,7 +8,8 @@ class MAP_ENTRY_TYPE(Enum):
 	MAP_TARGET = 2,
 	MAP_BEGIN = 3,
 	MAP_PLAYER = 4,
-	MAP_PATH = 5,
+	MAP_PLAYER_WAY = 5
+	MAP_PATH = 6,
 
 
 class WALL_DIRECTION(Enum):
@@ -23,7 +24,8 @@ map_entry_types = {0:MAP_ENTRY_TYPE.MAP_EMPTY,
 				   2:MAP_ENTRY_TYPE.MAP_TARGET,
 				   3:MAP_ENTRY_TYPE.MAP_BEGIN,
 				   4:MAP_ENTRY_TYPE.MAP_PLAYER,
-				   5:MAP_ENTRY_TYPE.MAP_PATH}
+				   5:MAP_ENTRY_TYPE.MAP_PLAYER_WAY,
+				   6:MAP_ENTRY_TYPE.MAP_PATH}
 
 
 class Map():
@@ -36,7 +38,6 @@ class Map():
 		x, y = (randint(rangeX[0], rangeX[1]), randint(rangeY[0], rangeY[1]))
 		while self.map[y][x] == 1 or self.map[y][x] == MAP_ENTRY_TYPE.MAP_BEGIN:
 			x, y = (randint(rangeX[0], rangeX[1]), randint(rangeY[0], rangeY[1]))
-		print(x, ' ', y)
 		return (x , y)
 
 	def resetMap(self, value):
@@ -55,8 +56,10 @@ class Map():
 			self.map[y][x] = 3
 		elif value == MAP_ENTRY_TYPE.MAP_PLAYER:
 			self.map[y][x] = 4
-		else:
+		elif value == MAP_ENTRY_TYPE.MAP_PLAYER_WAY:
 			self.map[y][x] = 5
+		else:
+			self.map[y][x] = 6
 	
 	def isVisited(self, x, y):
 		return self.map[y][x] != 1

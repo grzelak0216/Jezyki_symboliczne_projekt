@@ -80,10 +80,11 @@ def start_button_callback(obj, w, h):
     DEFAULT_HEIGHT = int(h.get())
 
     if not (obj.validation_check(w) and obj.validation_check(h)):
-        ctypes.windll.user32.MessageBoxW(0, "ENTER CORRECT DATA", "ERROR", 1)
+        ctypes.windll.user32.MessageBoxW(0, "ENTER CORRECT DATA", "ERROR", 0)
         return False
     else:
         obj.exit()
+        return DEFAULT_WIDTH, DEFAULT_HEIGHT
 
 
 def main():

@@ -6,7 +6,6 @@
 
   * Główne okno programu zawiera kontrolki pozwalające na wybór wielkości labiryntu (liczba pól N na M; para liczb całkowitych nie większych niż 30), wizualizację labiryntu (na przykład jako siatka kolorowych przycisków) oraz przycisk "generuj". 
   * Labirynt składa się z pól będących korytarzem lub ścianą.
-  * Użytkownik wybiera dwa różne pola będące wejściem i wyjściem. Pola te traktowane będą jak korytarz. Po naciśnięciu przycisku “generuj" następuje generowanie losowego labiryntu. 
   * Dla każdej pary pól będących korytarzem powinna istnieć ścieżka je łącząca (brak pól odłączonych od reszty labiryntu). Przechodzenie możliwe jest tylko na pola będące korytarzem które sąsiadują krawędzią z danym polem. 
   * Wygenerowany labirynt powinien posiadać ścieżkę od wejścia do wyjścia, która nie będzie linią prostą (poziomą lub pionową) i która powinna być zaznaczona na wizualizacji. 
   * Przechowywana jest lista punktów pośrednich ścieżki prowadzącej od wejścia do wyjścia. 
@@ -17,8 +16,8 @@
     
 ## Testy 
 
-  1. Wygenerowanie labiryntu o wymiarach 10 na 12 pól z wejściem i wyjściem na przeciwnych krawędziach. 
-  2. Wygenerowanie labiryntu o wymiarach 20 na 10 pól z wejściem i wyjściem cztery pola od przeciwnych, krótszych krawędzi. 
+  1. Wygenerowanie labiryntu o wymiarach 11 na 13 pól. 
+  2. Wygenerowanie labiryntu o wymiarach 21 na 11 pól. 
   3. Próba wygenerowania labiryntu o wymiarach 10 na 10 z wejściem i wyjściem w jednym polu - oczekiwana informacja o błędzie. 
   4. Próba wygenerowania labiryntu o wymiarach 10 na 10 z wejściem i wyjściem koło siebie - oczekiwana informacja o błędzie, ścieżka jest linią prostą. 
   5. Próba wygenerowania labiryntu o wymiarach 10 na 10 z wejściem i wyjściem między którymi jest 1, 2 lub 3 pola odstępu - oczekiwany labirynt bez ścieżki będącej linią prostą. 

@@ -1,4 +1,4 @@
-from random import randint, choice
+from random import choice
 from GameMap import *
 from enum import Enum
 

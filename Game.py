@@ -1,6 +1,7 @@
 import pygame
 from sys import exit
 from MazeGenerator import *
+from GamePathSearch import  *
 import time
 
 
@@ -55,7 +56,7 @@ class Path_Btn:
 
 	def draw(self):
 		pygame.draw.rect(self.screen, self.color, pygame.Rect(SCREEN_WIDTH-BUTTON_WIDTH, SCREEN_HEIGHT - BUTTON_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT))
-		self.screen.blit(self.text, (SCREEN_WIDTH - BUTTON_WIDTH + 12, SCREEN_HEIGHT - BUTTON_HEIGHT//4 - 18))
+		self.screen.blit(self.text, (SCREEN_WIDTH - BUTTON_WIDTH + 13, SCREEN_HEIGHT - BUTTON_HEIGHT//4 - 18))
 
 
 class Start_Restart_Btn:
@@ -109,6 +110,8 @@ class Game():
 					color = (0, 0, 0)
 				elif type == MAP_ENTRY_TYPE.MAP_PLAYER:
 					color = (128, 128, 128)
+				elif type == MAP_ENTRY_TYPE.MAP_PLAYER_WAY:
+					color = (180, 180, 180)
 				else:
 					color = (0, 255, 0)
 				pygame.draw.rect(self.screen, color, pygame.Rect(SIZE * x, SIZE * y + BUTTON_HEIGHT, SIZE, SIZE))
@@ -116,8 +119,13 @@ class Game():
 		self.buttonSTART.draw()
 		self.buttonPATH.draw()
 
+	def check_Map(self):
+		if self.source[0] == self.dest[0] or self.source[1] == self.dest[1]:
+			return False
+		return True
+
 	def generateMaze(self):
-		if self.mode > 2:
+		if self.mode > 3:
 			self.mode = 0
 
 		if self.mode == 0:
@@ -127,14 +135,20 @@ class Game():
 			self.source = self.map.generatePos((1, self.map.width-2), (1, self.map.height-2))
 			self.player = list(self.source)
 			self.dest = self.map.generatePos((1, self.map.width-2), (1, self.map.height-2))
-			if self.source[0] == self.dest[0] or self.source[1] == self.dest[1]:
-				self.generateMaze()
+			self.check_Map()
+			self.map.setMap(self.source[0], self.source[1], MAP_ENTRY_TYPE.MAP_BEGIN)
+			self.map.setMap(self.player[0], self.player[1], MAP_ENTRY_TYPE.MAP_PLAYER)
+			self.map.setMap(self.dest[0], self.dest[1], MAP_ENTRY_TYPE.MAP_TARGET)
+
+		elif self.mode == 2:
+			PathSearch(self.map, self.source, self.dest)
 			self.map.setMap(self.source[0], self.source[1], MAP_ENTRY_TYPE.MAP_BEGIN)
 			self.map.setMap(self.player[0], self.player[1], MAP_ENTRY_TYPE.MAP_PLAYER)
 			self.map.setMap(self.dest[0], self.dest[1], MAP_ENTRY_TYPE.MAP_TARGET)
 
 		else:
 			self.map.resetMap(MAP_ENTRY_TYPE.MAP_EMPTY)
+
 		self.mode += 1
 
 
@@ -143,8 +157,9 @@ class Game():
 		if keys[pygame.K_w] or keys[pygame.K_UP]:
 			if (self.dest[0] == self.player[0] and self.player[1] == self.dest[1]):
 				self.screen.blit(self.text, (SCREEN_WIDTH // 3, SCREEN_HEIGHT // 2))
+
 			elif self.map.getType(self.player[0], self.player[1]-1) != MAP_ENTRY_TYPE.MAP_BLOCK:
-				self.map.setMap(self.player[0], self.player[1], MAP_ENTRY_TYPE.MAP_EMPTY)
+				self.map.setMap(self.player[0], self.player[1], MAP_ENTRY_TYPE.MAP_PLAYER_WAY)
 				self.map.setMap(self.source[0], self.source[1], MAP_ENTRY_TYPE.MAP_BEGIN)
 				self.map.setMap(self.dest[0], self.dest[1], MAP_ENTRY_TYPE.MAP_TARGET)
 				self.player[1] -= 1
@@ -154,8 +169,9 @@ class Game():
 		if keys[pygame.K_s] or keys[pygame.K_DOWN]:
 			if (self.dest[0] == self.player[0] and self.player[1] == self.dest[1]):
 				self.screen.blit(self.text, (SCREEN_WIDTH // 3, SCREEN_HEIGHT // 2))
+
 			elif self.map.getType(self.player[0], self.player[1]+1) != MAP_ENTRY_TYPE.MAP_BLOCK:
-				self.map.setMap(self.player[0], self.player[1], MAP_ENTRY_TYPE.MAP_EMPTY)
+				self.map.setMap(self.player[0], self.player[1], MAP_ENTRY_TYPE.MAP_PLAYER_WAY)
 				self.map.setMap(self.source[0], self.source[1], MAP_ENTRY_TYPE.MAP_BEGIN)
 				self.map.setMap(self.dest[0], self.dest[1], MAP_ENTRY_TYPE.MAP_TARGET)
 				self.player[1] += 1
@@ -165,8 +181,9 @@ class Game():
 		if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
 			if (self.dest[0] == self.player[0] and self.player[1] == self.dest[1]):
 				self.screen.blit(self.text, (SCREEN_WIDTH // 3, SCREEN_HEIGHT // 2))
+
 			elif self.map.getType(self.player[0]+1, self.player[1]) != MAP_ENTRY_TYPE.MAP_BLOCK:
-				self.map.setMap(self.player[0], self.player[1], MAP_ENTRY_TYPE.MAP_EMPTY)
+				self.map.setMap(self.player[0], self.player[1], MAP_ENTRY_TYPE.MAP_PLAYER_WAY)
 				self.map.setMap(self.source[0], self.source[1], MAP_ENTRY_TYPE.MAP_BEGIN)
 				self.map.setMap(self.dest[0], self.dest[1], MAP_ENTRY_TYPE.MAP_TARGET)
 				self.player[0] += 1
@@ -176,8 +193,9 @@ class Game():
 		if keys[pygame.K_a] or keys[pygame.K_LEFT]:
 			if (self.dest[0] == self.player[0] and self.player[1] == self.dest[1]):
 				self.screen.blit(self.text, (SCREEN_WIDTH // 3, SCREEN_HEIGHT // 2))
+
 			elif self.map.getType(self.player[0]-1, self.player[1]) != MAP_ENTRY_TYPE.MAP_BLOCK:
-				self.map.setMap(self.player[0], self.player[1], MAP_ENTRY_TYPE.MAP_EMPTY)
+				self.map.setMap(self.player[0], self.player[1], MAP_ENTRY_TYPE.MAP_PLAYER_WAY)
 				self.map.setMap(self.source[0], self.source[1], MAP_ENTRY_TYPE.MAP_BEGIN)
 				self.map.setMap(self.dest[0], self.dest[1], MAP_ENTRY_TYPE.MAP_TARGET)
 				self.player[0] -= 1
@@ -189,11 +207,14 @@ def check_buttons(game, mouse_x, mouse_y):
 	tempMode = game.mode
 	if mouse_y > SCREEN_HEIGHT/2:
 		print(game.mode)
-		if ((SCREEN_HEIGHT - BUTTON_HEIGHT) < mouse_y < SCREEN_HEIGHT) and tempMode == 1:
-			if 0 < mouse_x < BUTTON_WIDTH:
+		if ((SCREEN_HEIGHT - BUTTON_HEIGHT) < mouse_y < SCREEN_HEIGHT) and tempMode > 0:
+			if 0 < mouse_x < BUTTON_WIDTH and tempMode == 1:
 				game.generateMaze()
-			elif ((SCREEN_WIDTH - BUTTON_WIDTH) < mouse_x < SCREEN_WIDTH):
-				print('sciezka')
+			elif ((SCREEN_WIDTH - BUTTON_WIDTH) < mouse_x < SCREEN_WIDTH) and tempMode > 1:
+				game.mode = 2
+				print(game.mode, 'path')
+				game.generateMaze()
+
 	else:
 		for button in game.buttons:
 			if button.rect.collidepoint(mouse_x, mouse_y):
@@ -232,6 +253,7 @@ def LETS_PLAY_A_GAME(WIDTH, HEIGHT):
 				pygame.quit()
 				exit()
 			if event.type == pygame.KEYDOWN and event.key == pygame.K_KP_ENTER:
+				game.mode += 1
 				game.generateMaze()
 				break
 			elif event.type == pygame.MOUSEBUTTONDOWN:
@@ -239,6 +261,8 @@ def LETS_PLAY_A_GAME(WIDTH, HEIGHT):
 				check_buttons(game, mouse_x, mouse_y)
 				print(mouse_x, mouse_y)
 
-		game.move_playe()
+		if game.mode >= 2:
+			game.move_playe()
+
 		pygame.display.update()
 
