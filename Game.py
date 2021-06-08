@@ -6,8 +6,8 @@ import time
 
 
 SIZE = 15
-QUANTITY_IN_WIDTH = 31  #nieparzysta liczba!
-QUANTITY_IN_HEIGHT = 31 #nieparzysta liczba!
+QUANTITY_IN_WIDTH = 11  #nieparzysta liczba!
+QUANTITY_IN_HEIGHT = 11 #nieparzysta liczba!
 BUTTON_HEIGHT = 40
 BUTTON_WIDTH = 67
 SCREEN_WIDTH = QUANTITY_IN_WIDTH * SIZE
@@ -121,7 +121,8 @@ class Game():
 
 	def check_Map(self):
 		if self.source[0] == self.dest[0] or self.source[1] == self.dest[1]:
-			return False
+			self.mode = 1
+			self.map.generatePos((1, self.map.width-2), (1, self.map.height-2))
 		return True
 
 	def generateMaze(self):
@@ -151,56 +152,85 @@ class Game():
 
 		self.mode += 1
 
+	DIRECTION_UP = 0
+	DIRECTION_DOWN = 1
+	DIRECTION_LEFT = 2
+	DIRECTION_RIGHT = 3
 
-	def move_playe(self):
-		keys = pygame.key.get_pressed()
-		if keys[pygame.K_w] or keys[pygame.K_UP]:
+	def move_player_2(self, direction):
+		if direction == self.DIRECTION_UP:
 			if (self.dest[0] == self.player[0] and self.player[1] == self.dest[1]):
 				self.screen.blit(self.text, (SCREEN_WIDTH // 3, SCREEN_HEIGHT // 2))
 
-			elif self.map.getType(self.player[0], self.player[1]-1) != MAP_ENTRY_TYPE.MAP_BLOCK:
+			elif self.map.getType(self.player[0], self.player[1] - 1) != MAP_ENTRY_TYPE.MAP_BLOCK:
 				self.map.setMap(self.player[0], self.player[1], MAP_ENTRY_TYPE.MAP_PLAYER_WAY)
 				self.map.setMap(self.source[0], self.source[1], MAP_ENTRY_TYPE.MAP_BEGIN)
 				self.map.setMap(self.dest[0], self.dest[1], MAP_ENTRY_TYPE.MAP_TARGET)
-				self.player[1] -= 1
+				self.player[1]
 				self.map.setMap(self.player[0], self.player[1], MAP_ENTRY_TYPE.MAP_PLAYER)
 				time.sleep(0.4)
-
-		if keys[pygame.K_s] or keys[pygame.K_DOWN]:
+				return True
+			else:
+				return False
+		elif direction == self.DIRECTION_DOWN:
 			if (self.dest[0] == self.player[0] and self.player[1] == self.dest[1]):
 				self.screen.blit(self.text, (SCREEN_WIDTH // 3, SCREEN_HEIGHT // 2))
 
-			elif self.map.getType(self.player[0], self.player[1]+1) != MAP_ENTRY_TYPE.MAP_BLOCK:
+			elif self.map.getType(self.player[0], self.player[1] + 1) != MAP_ENTRY_TYPE.MAP_BLOCK:
 				self.map.setMap(self.player[0], self.player[1], MAP_ENTRY_TYPE.MAP_PLAYER_WAY)
 				self.map.setMap(self.source[0], self.source[1], MAP_ENTRY_TYPE.MAP_BEGIN)
 				self.map.setMap(self.dest[0], self.dest[1], MAP_ENTRY_TYPE.MAP_TARGET)
 				self.player[1] += 1
 				self.map.setMap(self.player[0], self.player[1], MAP_ENTRY_TYPE.MAP_PLAYER)
 				time.sleep(0.4)
+				return True
+			else:
+				return False
 
-		if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
+		elif direction == self.DIRECTION_RIGHT:
 			if (self.dest[0] == self.player[0] and self.player[1] == self.dest[1]):
 				self.screen.blit(self.text, (SCREEN_WIDTH // 3, SCREEN_HEIGHT // 2))
 
-			elif self.map.getType(self.player[0]+1, self.player[1]) != MAP_ENTRY_TYPE.MAP_BLOCK:
+			elif self.map.getType(self.player[0] + 1, self.player[1]) != MAP_ENTRY_TYPE.MAP_BLOCK:
 				self.map.setMap(self.player[0], self.player[1], MAP_ENTRY_TYPE.MAP_PLAYER_WAY)
 				self.map.setMap(self.source[0], self.source[1], MAP_ENTRY_TYPE.MAP_BEGIN)
 				self.map.setMap(self.dest[0], self.dest[1], MAP_ENTRY_TYPE.MAP_TARGET)
 				self.player[0] += 1
 				self.map.setMap(self.player[0], self.player[1], MAP_ENTRY_TYPE.MAP_PLAYER)
 				time.sleep(0.4)
+				return True
+			else:
+				return False
 
-		if keys[pygame.K_a] or keys[pygame.K_LEFT]:
+		elif direction == self.DIRECTION_LEFT:
 			if (self.dest[0] == self.player[0] and self.player[1] == self.dest[1]):
 				self.screen.blit(self.text, (SCREEN_WIDTH // 3, SCREEN_HEIGHT // 2))
 
-			elif self.map.getType(self.player[0]-1, self.player[1]) != MAP_ENTRY_TYPE.MAP_BLOCK:
+			elif self.map.getType(self.player[0] - 1, self.player[1]) != MAP_ENTRY_TYPE.MAP_BLOCK:
 				self.map.setMap(self.player[0], self.player[1], MAP_ENTRY_TYPE.MAP_PLAYER_WAY)
 				self.map.setMap(self.source[0], self.source[1], MAP_ENTRY_TYPE.MAP_BEGIN)
 				self.map.setMap(self.dest[0], self.dest[1], MAP_ENTRY_TYPE.MAP_TARGET)
 				self.player[0] -= 1
 				self.map.setMap(self.player[0], self.player[1], MAP_ENTRY_TYPE.MAP_PLAYER)
 				time.sleep(0.4)
+				return True
+			else:
+				return False
+
+
+	def move_playe(self):
+		keys = pygame.key.get_pressed()
+		if keys[pygame.K_w] or keys[pygame.K_UP]:
+			self.move_player_2(self.DIRECTION_UP)
+
+		elif keys[pygame.K_s] or keys[pygame.K_DOWN]:
+			self.move_player_2(self.DIRECTION_DOWN)
+
+		elif keys[pygame.K_d] or keys[pygame.K_RIGHT]:
+			self.move_player_2(self.DIRECTION_RIGHT)
+
+		elif keys[pygame.K_a] or keys[pygame.K_LEFT]:
+			self.move_player_2(self.DIRECTION_LEFT)
 
 
 def check_buttons(game, mouse_x, mouse_y):

@@ -80,7 +80,7 @@ def start_button_callback(obj, w, h):
     DEFAULT_HEIGHT = int(h.get())
 
     if not (obj.validation_check(w) and obj.validation_check(h)):
-        ctypes.windll.user32.MessageBoxW(0, "ENTER CORRECT DATA", "ERROR", 0)
+        #ctypes.windll.user32.MessageBoxW(0, "ENTER CORRECT DATA", "ERROR", 0)
         return False
     else:
         obj.exit()
@@ -90,7 +90,7 @@ def start_button_callback(obj, w, h):
 def main():
     main_window = MainWindow()
     main_window.init(start_button_callback).mainloop()
-    if not (DEFAULT_WIDTH == 0 and DEFAULT_HEIGHT == 0):
+    if (DEFAULT_WIDTH >= MIN_BOARD_SIZE and DEFAULT_WIDTH <= MAX_BOARD_SIZE) and (DEFAULT_HEIGHT >= MIN_BOARD_SIZE and DEFAULT_HEIGHT <= MAX_BOARD_SIZE):
         Game.LETS_PLAY_A_GAME(DEFAULT_WIDTH, DEFAULT_HEIGHT)
 
 

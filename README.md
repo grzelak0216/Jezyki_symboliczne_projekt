@@ -22,10 +22,9 @@
 
   1. Wygenerowanie labiryntu o wymiarach 11 na 13 pól. 
   2. Wygenerowanie labiryntu o wymiarach 21 na 11 pól. 
-  3. Próba wygenerowania labiryntu o wymiarach 10 na 10 z wejściem i wyjściem w jednym polu - oczekiwana informacja o błędzie. 
-  4. Próba wygenerowania labiryntu o wymiarach 10 na 10 z wejściem i wyjściem koło siebie - oczekiwana informacja o błędzie, ścieżka jest linią prostą. 
-  5. Próba wygenerowania labiryntu o wymiarach 10 na 10 z wejściem i wyjściem między którymi jest 1, 2 lub 3 pola odstępu - oczekiwany labirynt bez ścieżki będącej linią prostą. 
-  6. Próba wygenerowania labiryntu którego przynajmniej jeden z wymiarów wynosi 0 lub jest liczbą ujemną - oczekiwana informacja o błędzie. 
-  7. Próba wygenerowania za dużego labiryntu - oczekiwana informacja o błędzie. 
-  8. Wygenerowanie labiryntu o wymiarach 13 na 17, wejście i wyjście w dowolnych miejscach, wyszukanie ścieżki przez punkt pośredni wskazany przez prowadzącego. Wygenerowanie labiryntu o wymiarach 13 na 17, dodanie dwóch punktów pośrednich wskazanych przez prowadzącego, usunięcie pierwszego, dodanie kolejnego. Oczekiwane znalezienie właściwej ścieżki. 
-  9. Próba wyszukania ścieżki przez pole będące ścianą - oczekiwane niepowodzenie przy próbie dodania punktu pośredniego 
+  3. Wygenerowanie labiryntu o wymiarach 11 na 11 z testem sprawdzającym wejście i wyjście. 
+  4. Próba wygenerowania labiryntu z dwoma błędnymi wymiarami - oczekiwana informacja o błędzie.
+  5. Próba wygenerowania labiryntu którego przynajmniej jeden z wymiarów wynosi 0 lub jest liczbą ujemną - oczekiwana informacja o błędzie. 
+  6. Próba wygenerowania za dużego labiryntu - oczekiwana informacja o błędzie. 
+  7. Wygenerowanie labiryntu o wymiarach 13 na 17, wygenerowanie najkrótszej drogi. 
+  8. Próba wyszukania ścieżki przez pole będące ścianą - oczekiwane niepowodzenie przy próbie dodania punktu pośredniego 

@@ -75,7 +75,8 @@ def PathSearch(map, source, dest):
         location = getFastPosition(openlist)
         if location is None:
             print("PATH ERROR")
-            break;
+            return False
+            break
 
         if location.x == dest.x and location.y == dest.y:
             break
@@ -87,5 +88,7 @@ def PathSearch(map, source, dest):
     while location is not None:
         map.setMap(location.x, location.y, MAP_ENTRY_TYPE.MAP_PATH)
         location = location.pre_entry
+
+    return True
 
 
