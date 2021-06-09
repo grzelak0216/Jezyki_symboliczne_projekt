@@ -122,7 +122,7 @@ class Game():
 	def check_Map(self):
 		if self.source[0] == self.dest[0] or self.source[1] == self.dest[1]:
 			self.mode = 1
-			self.map.generatePos((1, self.map.width-2), (1, self.map.height-2))
+			self.generateMaze()
 		return True
 
 	def generateMaze(self):
@@ -160,13 +160,13 @@ class Game():
 	def move_player_2(self, direction):
 		if direction == self.DIRECTION_UP:
 			if (self.dest[0] == self.player[0] and self.player[1] == self.dest[1]):
-				self.screen.blit(self.text, (SCREEN_WIDTH // 3, SCREEN_HEIGHT // 2))
+				self.screen.blit(self.text, (0, 50))
 
 			elif self.map.getType(self.player[0], self.player[1] - 1) != MAP_ENTRY_TYPE.MAP_BLOCK:
 				self.map.setMap(self.player[0], self.player[1], MAP_ENTRY_TYPE.MAP_PLAYER_WAY)
 				self.map.setMap(self.source[0], self.source[1], MAP_ENTRY_TYPE.MAP_BEGIN)
 				self.map.setMap(self.dest[0], self.dest[1], MAP_ENTRY_TYPE.MAP_TARGET)
-				self.player[1]
+				self.player[1] -= 1
 				self.map.setMap(self.player[0], self.player[1], MAP_ENTRY_TYPE.MAP_PLAYER)
 				time.sleep(0.4)
 				return True
@@ -174,7 +174,7 @@ class Game():
 				return False
 		elif direction == self.DIRECTION_DOWN:
 			if (self.dest[0] == self.player[0] and self.player[1] == self.dest[1]):
-				self.screen.blit(self.text, (SCREEN_WIDTH // 3, SCREEN_HEIGHT // 2))
+				self.screen.blit(self.text, (0, 50))
 
 			elif self.map.getType(self.player[0], self.player[1] + 1) != MAP_ENTRY_TYPE.MAP_BLOCK:
 				self.map.setMap(self.player[0], self.player[1], MAP_ENTRY_TYPE.MAP_PLAYER_WAY)
@@ -189,7 +189,7 @@ class Game():
 
 		elif direction == self.DIRECTION_RIGHT:
 			if (self.dest[0] == self.player[0] and self.player[1] == self.dest[1]):
-				self.screen.blit(self.text, (SCREEN_WIDTH // 3, SCREEN_HEIGHT // 2))
+				self.screen.blit(self.text, (0, 50))
 
 			elif self.map.getType(self.player[0] + 1, self.player[1]) != MAP_ENTRY_TYPE.MAP_BLOCK:
 				self.map.setMap(self.player[0], self.player[1], MAP_ENTRY_TYPE.MAP_PLAYER_WAY)
@@ -204,7 +204,7 @@ class Game():
 
 		elif direction == self.DIRECTION_LEFT:
 			if (self.dest[0] == self.player[0] and self.player[1] == self.dest[1]):
-				self.screen.blit(self.text, (SCREEN_WIDTH // 3, SCREEN_HEIGHT // 2))
+				self.screen.blit(self.text, (0, 50))
 
 			elif self.map.getType(self.player[0] - 1, self.player[1]) != MAP_ENTRY_TYPE.MAP_BLOCK:
 				self.map.setMap(self.player[0], self.player[1], MAP_ENTRY_TYPE.MAP_PLAYER_WAY)
