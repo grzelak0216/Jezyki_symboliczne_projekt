@@ -4,7 +4,7 @@
 
 ## Opis zadania 
 
-  * Główne okno programu zawiera kontrolki pozwalające na wybór wielkości labiryntu (liczba pól N na M; para liczb całkowitych nie większych niż 30), wizualizację labiryntu (na przykład jako siatka kolorowych przycisków) oraz przycisk "generuj".
+  * Główne okno programu zawiera kontrolki pozwalające na wybór wielkości labiryntu (liczba pól N na M; para liczb całkowitych nie większych niż 40), wizualizację labiryntu (na przykład jako siatka kolorowych przycisków) oraz przycisk "generuj".
   * Labirynt składa się z pól będących korytarzem lub ścianą.
   * Labirynt składa się z pól będących korytarzem lub ścianą.
   * Dla każdej pary pól będących korytarzem powinna istnieć ścieżka je łącząca (brak pól odłączonych od reszty labiryntu). Przechodzenie możliwe jest tylko na pola będące korytarzem które sąsiadują krawędzią z danym polem. 
