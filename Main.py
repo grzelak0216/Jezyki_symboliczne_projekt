@@ -81,6 +81,7 @@ def start_button_callback(obj, w, h):
 
     if not (obj.validation_check(w) and obj.validation_check(h)):
         #ctypes.windll.user32.MessageBoxW(0, "ENTER CORRECT DATA", "ERROR", 0)
+        print("ERROR: ENTER CORRECT DATA")
         return False
     else:
         obj.exit()

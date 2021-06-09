@@ -47,10 +47,10 @@ class Test_tkinter (unittest.TestCase):
 
     def test_get_correct_size_21x11(self):
         mainwindow = MainWindow()
-        w = tkinter.StringVar(value = 21)
-        h = tkinter.StringVar(value = 11)
+        w = tkinter.StringVar(value = 9)
+        h = tkinter.StringVar(value = 39)
         wt, wh = start_button_callback(mainwindow, w, h)
-        self.assertEqual((wt, wh), (21, 11))
+        self.assertEqual((wt, wh), (9, 39))
         pygame.quit()
 
     def test_bad_size_other(self):

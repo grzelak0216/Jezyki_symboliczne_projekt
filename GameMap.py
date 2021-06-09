@@ -8,7 +8,7 @@ class MAP_ENTRY_TYPE(Enum):
 	MAP_TARGET = 2,
 	MAP_BEGIN = 3,
 	MAP_PLAYER = 4,
-	MAP_PLAYER_WAY = 5
+	MAP_PLAYER_WAY = 5,
 	MAP_PATH = 6,
 
 
